@@ -1,0 +1,157 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar {
+    height: 80px;
+    font-size: 25px;
+}
+
+.logo {}
+
+.hero {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.hero h1 {
+
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+.hero img {
+    max-width: 100%;
+    max-height: 50%;
+
+}
+
+.hero a {
+    font-size: 30px;
+    padding: 10px 40px;
+}
+
+.how-it-works {
+    background: linear-gradient(135deg, #41c6ff, #ff7e5f);
+    color: white;
+    position: relative;
+}
+
+.text-gradient {
+    background: linear-gradient(90deg, #ff416c, #ff7e5f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hiw-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(10px);
+}
+
+.hiw-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.hiw-icon i {
+    background: linear-gradient(45deg, #ff416c, #ff7e5f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.hiw-card:hover .hiw-icon i {
+    transform: rotate(15deg) scale(1.2);
+}
+
+.hiw-card h5 {
+    margin-top: 15px;
+}
+
+.hiw-card p {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* SECTION-2*/
+
+.icon-container {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+i{
+    font-size:xx-large;
+}
+.red-bg {
+    background-color: #ff6347;
+}
+
+.blue-bg {
+    background-color: #1e90ff;
+}
+
+.lightblue-bg {
+    background-color: #87ceeb;
+}
+
+.yellow-bg {
+    background-color: #ffd700;
+}
+
+.purple-bg {
+    background-color: #6a5acd;
+}
+
+.container2 {
+    background-color: #87ceeb;
+}
+
+/*SECTION3 Started*/
+.program-card {
+    transition: all 0.3s ease-in-out;
+    border-radius: 15px;
+}
+
+.program-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.text-gradient {
+    background: linear-gradient(90deg, #007bff, #6610f2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.btn-outline-primary {
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-outline-primary:hover {
+    background: linear-gradient(90deg, #007bff, #6610f2);
+    color: white;
+    border: none;
+}
+
+.card img {
+    height: 100px;
+    /* Adjust as needed */
+    width: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.programs-hero {
+    background: linear-gradient(135deg, #ff7e5f, #ff416c, #6a11cb);
+}

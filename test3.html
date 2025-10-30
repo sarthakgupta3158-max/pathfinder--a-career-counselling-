@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Career Test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #3a7bd5, #00d2ff);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    label {
+      background: rgba(255,255,255,0.1);
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    label:hover {
+      background: rgba(255,255,255,0.25);
+      transform: scale(1.02);
+    }
+
+    label i {
+      font-size: 20px;
+      color: #ffd369;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #ff9800;
+      color: #fff;
+      transition: background 0.3s;
+    }
+
+    button:disabled {
+      background: gray;
+      cursor: not-allowed;
+    }
+
+    button:hover:enabled {
+      background: #e68900;
+    }
+
+    .result {
+      text-align: center;
+    }
+
+    .result h3 {
+      margin-top: 0;
+      font-size: 24px;
+    }
+
+    .resources {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .course-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .course-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .course-card img {
+      width: 100%;
+      border-radius: 8px;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    .course-card a {
+      display: block;
+      color: #ffd369;
+      margin-top: 10px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .course-card a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="quizContainer">
+    <h2 id="question">Loading...</h2>
+    <div class="options" id="options"></div>
+    <button id="nextBtn" disabled>Next</button>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "What is your current work preference?",
+        answers: [
+          { text: "Corporate job in IT", career: "Software Developer", icon: "fa-solid fa-laptop-code" },
+          { text: "Management and leadership", career: "Project Manager", icon: "fa-solid fa-briefcase" },
+          { text: "Creative field like design", career: "UI/UX Designer", icon: "fa-solid fa-palette" },
+          { text: "Independent / Freelancing", career: "Freelancer / Consultant", icon: "fa-solid fa-user-tie" }
+        ]
+      },
+      {
+        question: "What motivates you the most at work?",
+        answers: [
+          { text: "Problem solving & coding", career: "Software Developer", icon: "fa-solid fa-code" },
+          { text: "Organizing people & tasks", career: "Project Manager", icon: "fa-solid fa-users" },
+          { text: "Creating visually appealing work", career: "UI/UX Designer", icon: "fa-solid fa-paintbrush" },
+          { text: "Flexibility & independence", career: "Freelancer / Consultant", icon: "fa-solid fa-globe" }
+        ]
+      },
+      {
+        question: "What skills do you want to improve?",
+        answers: [
+          { text: "Programming languages", career: "Software Developer", icon: "fa-solid fa-code-branch" },
+          { text: "Team leadership", career: "Project Manager", icon: "fa-solid fa-sitemap" },
+          { text: "Design & prototyping", career: "UI/UX Designer", icon: "fa-solid fa-pencil-ruler" },
+          { text: "Client communication", career: "Freelancer / Consultant", icon: "fa-solid fa-handshake" }
+        ]
+      }
+    ];
+
+    const resources = {
+      "Software Developer": [
+        { name: "Udemy: The Complete Java Developer Course", link: "https://www.udemy.com/course/java-the-complete-java-developer-course/", img: "https://img-c.udemycdn.com/course/240x135/533682_c10c_4.jpg" },
+        { name: "Coursera: Python for Everybody", link: "https://www.coursera.org/specializations/python", img: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/f2/8e47a0b1a411e5b3b0508342e1e90d/P4ELogo-01.png" },
+        { name: "FreeCodeCamp - Full Stack Development", link: "https://www.freecodecamp.org/", img: "https://design-style-guide.freecodecamp.org/downloads/fcc_secondary_small.png" }
+      ],
+      "Project Manager": [
+        { name: "Udemy: PMP Exam Prep Seminar", link: "https://www.udemy.com/course/pmp-pmbok6-35-pdus-project-management-professional-certification-exam-prep/", img: "https://img-c.udemycdn.com/course/240x135/1479688_6c65_3.jpg" },
+        { name: "Coursera: Project Management Principles", link: "https://www.coursera.org/specializations/project-management", img: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/9f/6f2d10629a42a898df2acb5cd48b91/project-management.png" },
+        { name: "Harvard Online - Leadership", link: "https://online.hbs.edu/", img: "https://online.hbs.edu/Style%20Library/api/resize.aspx?imgpath=/PublishingImages/HBSOnline_OGImage.jpg&w=1200&h=630" }
+      ],
+      "UI/UX Designer": [
+        { name: "Udemy: UX/UI Design Bootcamp", link: "https://www.udemy.com/course/uxui-design-bootcamp/", img: "https://img-c.udemycdn.com/course/240x135/1565838_e54e_14.jpg" },
+        { name: "Coursera: UI/UX Design Specialization", link: "https://www.coursera.org/specializations/ui-ux-design", img: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/18/c29f61263f4e8a8a4606f7cda19368/ux.png" },
+        { name: "Canva Design School (Free)", link: "https://www.canva.com/designschool/", img: "https://about.canva.com/wp-content/uploads/sites/3/2016/08/canva-logo.png" }
+      ],
+      "Freelancer / Consultant": [
+        { name: "Udemy: Freelancing A-Z", link: "https://www.udemy.com/course/freelancing-a-to-z/", img: "https://img-c.udemycdn.com/course/240x135/2026600_45f6_2.jpg" },
+        { name: "Coursera: Business Strategies for Entrepreneurs", link: "https://www.coursera.org/learn/entrepreneurship-strategy", img: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/f1/99d9e9e45f4fbaad163b53a0ff7d95/business-strategy.jpg" },
+        { name: "Upwork Academy (Free)", link: "https://community.upwork.com/t5/Academy/ct-p/Academy", img: "https://play-lh.googleusercontent.com/2Cz7YCOJk6MGpSUwTPpU5DoT1IXzkbQ-dKqA4TrPz9daCvzu3ssTD8pRWIV4CzlhSmM" }
+      ]
+    };
+
+    let currentQuestion = 0;
+    let answers = [];
+
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const nextBtn = document.getElementById("nextBtn");
+    const quizContainer = document.getElementById("quizContainer");
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      questionEl.textContent = q.question;
+      optionsEl.innerHTML = "";
+      nextBtn.disabled = true;
+
+      q.answers.forEach((answer, index) => {
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = "answer";
+        input.value = answer.career;
+        input.id = "option" + index;
+
+        input.addEventListener("change", () => {
+          nextBtn.disabled = false;
+        });
+
+        const icon = document.createElement("i");
+        icon.className = answer.icon;
+
+        label.htmlFor = input.id;
+        label.appendChild(input);
+        label.appendChild(icon);
+        label.append(" " + answer.text);
+
+        optionsEl.appendChild(label);
+      });
+    }
+
+    nextBtn.addEventListener("click", () => {
+      const selected = document.querySelector('input[name="answer"]:checked');
+      if (!selected) return;
+      answers.push(selected.value);
+
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    });
+
+    function showResult() {
+      const career = mostFrequent(answers);
+      quizContainer.innerHTML = `
+        <div class="result">
+          <h3><i class="fa-solid fa-award"></i> Recommended Career Path: ${career}</h3>
+          <p>Based on your answers, you might succeed as a <b>${career}</b>. Here are some resources to help you:</p>
+          <div class="resources">
+            ${resources[career].map(r => `
+              <div class="course-card">
+                <img src="${r.img}" alt="${r.name}">
+                <a href="${r.link}" target="_blank">${r.name}</a>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function mostFrequent(arr) {
+      return arr.sort((a,b) =>
+        arr.filter(v => v===a).length - arr.filter(v => v===b).length
+      ).pop();
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Indian Universities - PathFinder</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+        }
+
+        header {
+            background: #2289ff;
+            color: #fff;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        header p {
+            margin-top: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Search Section */
+        .search-container {
+            padding: 20px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 60%;
+            max-width: 400px;
+            padding: 10px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        /* Name List */
+        .name-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 20px;
+        }
+
+        .name-list span {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .name-list span:hover {
+            background: #2289ff;
+            color: #fff;
+        }
+
+        /* College Grid */
+        .college-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            padding: 40px;
+        }
+
+        .college-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: .3s;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .college-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .college-card h3 {
+            color: #2289ff;
+            margin-bottom: 10px;
+        }
+
+        /* Roadmap */
+        .roadmap {
+            display: none;
+            background: #fff;
+            padding: 25px;
+            margin: 30px auto;
+            border-radius: 15px;
+            max-width: 800px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            line-height: 1.6;
+        }
+
+        .roadmap h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .roadmap ul {
+            padding-left: 20px;
+        }
+
+        .roadmap li {
+            margin-bottom: 10px;
+        }
+
+        .roadmap a {
+            display: inline-block;
+            margin-top: 15px;
+            background: #2289ff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: .3s;
+        }
+
+        .roadmap a:hover {
+            background: #e64a19;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Top Universities & Colleges in India</h1>
+        <p>Click a college to view its admission roadmap</p>
+    </header>
+
+    <!-- Search -->
+    <div class="search-container">
+        <input type="text" id="searchBox" placeholder="Search for a university or college..."
+            onkeyup="filterColleges()">
+    </div>
+
+    <!-- Names Below Search -->
+    <div class="name-list" id="nameList"></div>
+
+    <!-- College Cards -->
+    <section class="college-list" id="collegeList">
+        <!-- Filled by JS -->
+    </section>
+
+    <!-- Roadmap -->
+    <div id="roadmapBox" class="roadmap"></div>
+
+    <script>
+        const colleges = [
+            {
+                id: 'iit', name: 'Indian Institutes of Technology (IITs)', roadmap: [
+                    'Appear for JEE Main',
+                    'Qualify for JEE Advanced',
+                    'Participate in JoSAA counselling',
+                    'Select IIT & branch'
+                ], link: 'https://josaa.nic.in/'
+            },
+
+            {
+                id: 'aiims', name: 'AIIMS (All India Institute of Medical Sciences)', roadmap: [
+                    'Appear for NEET UG',
+                    'Qualify with high rank',
+                    'Participate in AIIMS counselling',
+                    'Select AIIMS campus'
+                ], link: 'https://www.aiimsexams.ac.in/'
+            },
+
+            {
+                id: 'du', name: 'University of Delhi (DU)', roadmap: [
+                    'Register on DU portal',
+                    'Appear for CUET exam',
+                    'Participate in counselling',
+                    'Choose course & college'
+                ], link: 'http://www.du.ac.in/'
+            },
+
+            {
+                id: 'jnu', name: 'Jawaharlal Nehru University (JNU)', roadmap: [
+                    'Apply via JNU admission portal',
+                    'Appear for CUET-PG or JNUEE',
+                    'Selection based on merit & entrance',
+                    'Confirm admission after counselling'
+                ], link: 'https://www.jnu.ac.in/'
+            },
+
+            {
+                id: 'bits', name: 'Birla Institute of Technology & Science (BITS Pilani)', roadmap: [
+                    'Appear for BITSAT exam',
+                    'Score cutoff marks',
+                    'Participate in counselling',
+                    'Confirm admission at BITS campus'
+                ], link: 'https://www.bitsadmission.com/'
+            },
+
+            {
+                id: 'iim', name: 'Indian Institutes of Management (IIMs)', roadmap: [
+                    'Appear for CAT exam',
+                    'Shortlist for GD/PI',
+                    'Clear interview & group discussions',
+                    'Receive admission offer'
+                ], link: 'https://iimcat.ac.in/'
+            },
+
+            {
+                id: 'vit', name: 'Vellore Institute of Technology (VIT)', roadmap: [
+                    'Register for VITEEE exam',
+                    'Qualify with rank',
+                    'Participate in counselling',
+                    'Select campus & branch'
+                ], link: 'https://vit.ac.in/'
+            },
+
+            {
+                id: 'manipal', name: 'Manipal Academy of Higher Education (MAHE)', roadmap: [
+                    'Apply via Manipal online portal',
+                    'Appear for MET exam',
+                    'Shortlist through counselling',
+                    'Confirm admission in chosen program'
+                ], link: 'https://manipal.edu/'
+            },
+
+            {
+                id: 'amity', name: 'Amity University', roadmap: [
+                    'Apply through Amity admission portal',
+                    'Merit based on past academics/entrance',
+                    'Interview round',
+                    'Admission confirmation'
+                ], link: 'https://www.amity.edu/'
+            },
+
+            {
+                id: 'jamia', name: 'Jamia Millia Islamia (JMI)', roadmap: [
+                    'Apply via JMI portal',
+                    'Appear for entrance exam',
+                    'Merit list & counselling',
+                    'Confirm admission'
+                ], link: 'https://www.jmi.ac.in/'
+            },
+
+
+            {
+                id: 'amu', name: 'Aligarh Muslim University (AMU)', roadmap: [
+                    'Apply via AMU admission portal',
+                    'Appear for AMUEE or other required entrance exams',
+                    'Shortlisting based on merit/entrance score',
+                    'Attend counselling & confirm admission'
+                ], link: 'https://www.amu.ac.in/'
+            },
+
+            {
+                id: 'bhu', name: 'Banaras Hindu University (BHU), Varanasi', roadmap: [
+                    'Register on BHU admission portal',
+                    'Appear for CUET exam (UG/PG)',
+                    'Merit list based on CUET',
+                    'Counselling & seat allotment'
+                ], link: 'https://www.bhu.ac.in/'
+            },
+
+            {
+                id: 'uptu', name: 'Dr. A.P.J. Abdul Kalam Technical University (AKTU/UPTU), Lucknow', roadmap: [
+                    'Appear for UPCET/JEECUP exam',
+                    'Qualify with required rank',
+                    'Participate in UPSEE counselling',
+                    'Confirm admission to affiliated colleges'
+                ], link: 'https://aktu.ac.in/'
+            },
+
+            {
+                id: 'lucknowu', name: 'University of Lucknow (LU), Lucknow', roadmap: [
+                    'Register on LU admission portal',
+                    'Appear for LU entrance test or CUET (depending on program)',
+                    'Merit list announcement',
+                    'Counselling & document verification'
+                ], link: 'https://www.lkouniv.ac.in/'
+            },
+
+            {
+                id: 'iitk', name: 'Indian Institute of Technology (IIT Kanpur), Uttar Pradesh', roadmap: [
+                    'Appear for JEE Main',
+                    'Qualify for JEE Advanced',
+                    'Participate in JoSAA counselling',
+                    'Select IIT Kanpur as preference'
+                ], link: 'https://www.iitk.ac.in/'
+            },
+
+            {
+                id: 'iiitl', name: 'Indian Institute of Information Technology (IIIT Lucknow)', roadmap: [
+                    'Appear for JEE Main exam',
+                    'Participate in JoSAA counselling',
+                    'Select IIIT Lucknow in seat preference',
+                    'Confirm seat allotment'
+                ], link: 'https://iiitl.ac.in/'
+            },
+
+            {
+                id: 'sgpgi', name: 'Sanjay Gandhi Postgraduate Institute of Medical Sciences (SGPGI), Lucknow', roadmap: [
+                    'Apply via SGPGI admission portal',
+                    'Appear for NEET-PG/AIIMS/JIPMER (as applicable)',
+                    'Shortlisting & merit list',
+                    'Counselling and admission formalities'
+                ], link: 'https://www.sgpgi.ac.in/'
+            },
+
+            {
+                id: 'rmlnl', name: 'Dr. Ram Manohar Lohiya National Law University (RMLNLU), Lucknow', roadmap: [
+                    'Appear for CLAT exam',
+                    'Qualify and get rank in CLAT merit list',
+                    'Participate in CLAT counselling',
+                    'Select RMLNLU Lucknow as preference'
+                ], link: 'https://www.rmlnlu.ac.in/'
+            },
+
+            {
+                id: 'mlnmed', name: 'Motilal Nehru Medical College (MLNMC), Prayagraj', roadmap: [
+                    'Appear for NEET UG exam',
+                    'Secure cutoff rank',
+                    'Participate in UPDGME counselling',
+                    'Allotment of seat at MLN Medical College'
+                ], link: 'https://mlnmc.in/'
+            },
+
+            {
+                id: 'kgmu', name: 'King George\'s Medical University (KGMU), Lucknow', roadmap: [
+                    'Appear for NEET UG/PG (depending on program)',
+                    'Secure rank under UP quota or All India quota',
+                    'Participate in UPDGME/ MCC counselling',
+                    'Confirm admission at KGMU'
+                ], link: 'https://www.kgmu.org/'
+            },
+
+            {
+                id: 'rsu', name: 'Sri Ramswaroop Memorial University (SRMU), Lucknow', roadmap: [
+                    'Apply via SRMU official admission portal',
+                    'Submit past academic details and appear for entrance test (if applicable)',
+                    'Attend counselling session',
+                    'Pay fees and confirm admission'
+                ], link: 'https://srmu.ac.in/'
+            },
+
+            {
+                id: 'bbdu', name: 'Babu Banarasi Das University (BBDU), Lucknow', roadmap: [
+                    'Apply online at BBDU admission portal',
+                    'Selection based on entrance exam or merit in qualifying exam',
+                    'Counselling and document verification',
+                    'Admission confirmation'
+                ], link: 'https://bbdu.ac.in/'
+            },
+
+            {
+                id: 'lpu', name: 'Lovely Professional University (LPU), Punjab', roadmap: [
+                    'Register for LPUNEST entrance exam',
+                    'Qualify LPUNEST / or apply on merit basis',
+                    'Appear for interview (if applicable)',
+                    'Participate in counselling and confirm admission'
+                ], link: 'https://www.lpu.in/'
+            },
+
+            {
+                id: 'sharda', name: 'Sharda University, Greater Noida', roadmap: [
+                    'Apply via Sharda online application',
+                    'Appear for SUAT entrance test / merit basis',
+                    'Shortlisting for counselling',
+                    'Admission confirmation after payment'
+                ], link: 'https://www.sharda.ac.in/'
+            },
+
+            {
+                id: 'amityup', name: 'Amity University, Noida', roadmap: [
+                    'Apply through Amity admission portal',
+                    'Submit application & appear for Amity test/interview',
+                    'Shortlisting based on merit/entrance',
+                    'Confirm admission after counselling'
+                ], link: 'https://www.amity.edu/noida/'
+            },
+
+            {
+                id: 'galgotias', name: 'Galgotias University, Greater Noida', roadmap: [
+                    'Apply via Galgotias official website',
+                    'Admissions based on entrance exam / merit in qualifying exam',
+                    'Counselling & document verification',
+                    'Admission confirmation'
+                ], link: 'https://www.galgotiasuniversity.edu.in/'
+            },
+
+            {
+                id: 'gla', name: 'GLA University, Mathura', roadmap: [
+                    'Apply online through GLA admission portal',
+                    'Appear for GLAET (GLA Entrance Test)',
+                    'Qualify exam and attend counselling',
+                    'Confirm admission by paying fees'
+                ], link: 'https://www.gla.ac.in/'
+            },
+
+            {
+                id: 'niit', name: 'NIIT University, Neemrana (Rajasthan)', roadmap: [
+                    'Apply via NIIT University website',
+                    'Selection through NUAT/Board merit',
+                    'Personal interaction/interview',
+                    'Confirm admission'
+                ], link: 'https://www.niituniversity.in/'
+            },
+
+            {
+                id: 'parul', name: 'Parul University, Vadodara', roadmap: [
+                    'Apply online at Parul University portal',
+                    'Selection through entrance/merit basis',
+                    'Counselling and admission confirmation',
+                    'Enrollment in chosen program'
+                ], link: 'https://paruluniversity.ac.in/'
+            },
+
+            {
+                id: 'chitkara', name: 'Chitkara University, Punjab/Himachal Pradesh', roadmap: [
+                    'Register online at Chitkara admission portal',
+                    'Admissions via entrance tests / merit basis',
+                    'Counselling and seat allotment',
+                    'Confirm admission with payment'
+                ], link: 'https://www.chitkara.edu.in/'
+            }
+
+            // You can extend up to 50 universities here
+        ];
+
+        // Load Colleges
+        function loadColleges() {
+            const list = document.getElementById('collegeList');
+            const names = document.getElementById('nameList');
+            list.innerHTML = ''; names.innerHTML = '';
+            colleges.forEach(c => {
+                list.innerHTML += `
+          <div class="college-card" onclick="showRoadmap('${c.id}')">
+            <h3>${c.name}</h3>
+            <p>Click to view roadmap</p>
+          </div>`;
+                names.innerHTML += `<span onclick="showRoadmap('${c.id}')">${c.name}</span>`;
+            });
+        }
+
+        // Search Filter
+        function filterColleges() {
+            const query = document.getElementById('searchBox').value.toLowerCase();
+            document.querySelectorAll('.college-card').forEach(card => {
+                const name = card.querySelector('h3').innerText.toLowerCase();
+                card.style.display = name.includes(query) ? 'block' : 'none';
+            });
+            document.querySelectorAll('.name-list span').forEach(span => {
+                span.style.display = span.innerText.toLowerCase().includes(query) ? 'inline-block' : 'none';
+            });
+        }
+
+        // Show Roadmap
+        function showRoadmap(id) {
+            const college = colleges.find(c => c.id === id);
+            if (college) {
+                const roadmapHTML = `
+          <h2>${college.name} Admission Roadmap</h2>
+          <ul>${college.roadmap.map(step => `<li>${step}</li>`).join('')}</ul>
+          <a href="${college.link}" target="_blank">Visit Official Site</a>
+        `;
+                document.getElementById('roadmapBox').innerHTML = roadmapHTML;
+                document.getElementById('roadmapBox').style.display = 'block';
+                window.scrollTo({ top: document.getElementById('roadmapBox').offsetTop - 50, behavior: 'smooth' });
+            }
+        }
+
+        // Init
+        loadColleges();
+    </script>
+
+</body>
+
+</html>

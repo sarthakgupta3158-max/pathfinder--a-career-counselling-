@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liberal Arts Colleges in India</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script>
+    // Liberal Arts Colleges Data
+    const liberalArtsColleges = [
+      {
+        id: "ashoka",
+        name: "Ashoka University (Sonipat, Haryana)",
+        roadmap: [
+          "Apply through Ashoka’s online portal.",
+          "Submit SOP, essays, and recommendation letters.",
+          "Shortlisted students appear for interview/assessment.",
+          "Final selection based on holistic evaluation."
+        ],
+        link: "https://www.ashoka.edu.in/"
+      },
+      {
+        id: "flame",
+        name: "FLAME University (Pune, Maharashtra)",
+        roadmap: [
+          "Register at FLAME official portal.",
+          "Submit application with SOP & extracurricular details.",
+          "Appear for FEAT (FLAME Entrance Aptitude Test) or other tests.",
+          "Shortlisting and final interview."
+        ],
+        link: "https://www.flame.edu.in/"
+      },
+      {
+        id: "opjindal",
+        name: "O.P. Jindal Global University (Sonipat, Haryana)",
+        roadmap: [
+          "Apply through Jindal official portal.",
+          "Submit SOP, academic records, and recommendation.",
+          "Shortlisting followed by interview.",
+          "Final selection and admission confirmation."
+        ],
+        link: "https://jgu.edu.in/"
+      },
+      {
+        id: "krea",
+        name: "KREA University (Sri City, Andhra Pradesh)",
+        roadmap: [
+          "Submit application online with essays and documents.",
+          "Holistic review of academic + extracurriculars.",
+          "Interview process for shortlisted candidates.",
+          "Final admission offer issued."
+        ],
+        link: "https://krea.edu.in/"
+      },
+      {
+        id: "snu",
+        name: "Shiv Nadar University (Dadri, Uttar Pradesh)",
+        roadmap: [
+          "Apply via SNU online portal.",
+          "Selection through aptitude test / board performance.",
+          "Interview round for shortlisted candidates.",
+          "Admission confirmation."
+        ],
+        link: "https://snu.edu.in/"
+      },
+      {
+        id: "apu",
+        name: "Azim Premji University (Bangalore, Karnataka)",
+        roadmap: [
+          "Apply via APU admissions portal.",
+          "Appear for entrance test conducted by APU.",
+          "Interview process for shortlisted students.",
+          "Final admission list released."
+        ],
+        link: "https://azimpremjiuniversity.edu.in/"
+      },
+      {
+        id: "symbiosis",
+        name: "Symbiosis School for Liberal Arts (Pune, Maharashtra)",
+        roadmap: [
+          "Apply through Symbiosis portal.",
+          "Appear for SET (Symbiosis Entrance Test).",
+          "Shortlisting and interview.",
+          "Final selection and fee payment."
+        ],
+        link: "https://www.ssla.edu.in/"
+      },
+      {
+        id: "christ",
+        name: "Christ University (Bangalore, Karnataka)",
+        roadmap: [
+          "Register on Christ University portal.",
+          "Appear for Christ University Entrance Test (CUET).",
+          "Shortlisted candidates appear for interview and micro-presentation.",
+          "Final admission based on performance."
+        ],
+        link: "https://christuniversity.in/"
+      }
+    ];
+
+    // Search Function
+    function searchCollege() {
+      const query = document.getElementById("search").value.toLowerCase();
+      const collegeCards = document.querySelectorAll(".college-card");
+      collegeCards.forEach(card => {
+        const name = card.querySelector("h3").innerText.toLowerCase();
+        card.style.display = name.includes(query) ? "block" : "none";
+      });
+    }
+
+    // Show Roadmap
+    function showDetails(id) {
+      const college = liberalArtsColleges.find(c => c.id === id);
+      const roadmapDiv = document.getElementById("roadmap");
+      roadmapDiv.innerHTML = `
+        <h2 class="text-2xl font-bold mb-2">${college.name}</h2>
+        <h3 class="text-lg font-semibold">Admission Roadmap:</h3>
+        <ul class="list-disc pl-6 my-2">
+          ${college.roadmap.map(step => `<li>${step}</li>`).join("")}
+        </ul>
+        <a href="${college.link}" target="_blank" class="text-blue-600 underline">Visit Official Website</a>
+      `;
+      roadmapDiv.scrollIntoView({behavior:"smooth"});
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-r from-blue-600 to-purple-700 text-white py-20 text-center">
+    <h1 class="text-4xl font-extrabold">Top Liberal Arts Colleges in India</h1>
+    <p class="mt-4 text-lg">Discover admission processes, roadmaps, and official links</p>
+  </section>
+
+  <!-- Search Section -->
+  <section class="py-8 text-center">
+    <input type="text" id="search" onkeyup="searchCollege()" placeholder="Search Colleges..." class="border p-2 rounded w-1/2 shadow">
+  </section>
+
+  <!-- Colleges Grid -->
+  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-8">
+    <script>
+      liberalArtsColleges.forEach(college => {
+        document.write(`
+          <div class="college-card bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+            <h3 class="text-xl font-semibold mb-2">${college.name}</h3>
+            <button onclick="showDetails('${college.id}')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">View More</button>
+          </div>
+        `);
+      });
+    </script>
+  </section>
+
+  <!-- Roadmap Section -->
+  <section id="roadmap" class="bg-white mt-10 mx-8 p-6 rounded-lg shadow-lg"></section>
+
+</body>
+</html>

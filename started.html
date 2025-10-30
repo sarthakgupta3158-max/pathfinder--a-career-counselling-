@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Role</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0077b6, #00b4d8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .role-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      width: 600px;
+      max-width: 95%;
+    }
+
+    .role-card h5 {
+      font-weight: 600;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .role-options {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      /* space between the boxes */
+      flex-wrap: wrap;
+    }
+
+    .role-box {
+      width: 250px;
+      height: 150px;
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .role-box:hover {
+      background: #eaf6ff;
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .role-box i {
+      font-size: 40px;
+      background: #0077b6;
+      color: #fff;
+      padding: 15px;
+      border-radius: 50%;
+      margin-bottom: 12px;
+      transition: background 0.3s;
+    }
+
+    .role-box:hover i {
+      background: #00b4d8;
+    }
+
+    .role-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="role-card">
+    <h3>I am a</h3>
+    <div class="role-options">
+      <!-- Student -->
+      <div class="role-box" onclick="startTest('student')">
+        <i class="bi bi-mortarboard"></i>
+        <div class="role-text">Student</div>
+      </div>
+      <!-- Institution -->
+      <div class="role-box" onclick="startTest('institution')">
+        <i class="bi bi-building"></i>
+        <div class="role-text">Institution</div>
+      </div>
+      <!-- Career Professional -->
+      <div class="role-box" onclick="startTest('professional')">
+        <i class="bi bi-briefcase"></i>
+        <div class="role-text">Career Professional</div>
+      </div>
+    </div>
+  </div>
+  <!--chatbot-->
+  <div class="d-flex align-items-center justify-content-between p-3 position-fixed bottom-0 end-0 m-4 rounded-4 shadow"
+    style="background-color: #f0f0f8;">
+    <div class="d-flex align-items-center">
+      <div class="icon-container purple-bg me-3">
+       <i class="bi bi-chat-dots"></i>
+      </div>
+      <div>
+        <p class="mb-0 fw-bold">Hey! Looking for right Career Guidance?</p> <small class="text-muted">Discover
+          the ideal career path with Orion AI—your personal career guide!</small>
+      </div>
+    </div> <button class="btn btn-dark ms-3 rounded-pill px-4">Let's Chat!</button>
+  </div>
+
+  <script>
+    function startTest(type) {
+      if (type === 'student') {
+        window.location.href = "test.html";
+      }
+      else if (type == 'institution') {
+        window.location.href = "test2.html";
+      }
+      else if (type == 'professional') {
+        window.location.href = "test3.html";
+      }
+    }
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 11 & 12 Career Test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    label {
+      background: rgba(255,255,255,0.1);
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    label:hover {
+      background: rgba(255,255,255,0.25);
+      transform: scale(1.02);
+    }
+
+    label i {
+      font-size: 20px;
+      color: #ffd369;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #ff9800;
+      color: #fff;
+      transition: background 0.3s;
+    }
+
+    button:disabled {
+      background: gray;
+      cursor: not-allowed;
+    }
+
+    button:hover:enabled {
+      background: #e68900;
+    }
+
+    .result {
+      text-align: center;
+    }
+
+    .result h3 {
+      margin-top: 0;
+      font-size: 24px;
+    }
+
+    .resources {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .course-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .course-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .course-card img {
+      width: 100%;
+      border-radius: 8px;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    .course-card a {
+      display: block;
+      color: #ffd369;
+      margin-top: 10px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .course-card a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="quizContainer">
+    <h2 id="question">Loading...</h2>
+    <div class="options" id="options"></div>
+    <button id="nextBtn" disabled>Next</button>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "Which subject do you enjoy the most?",
+        answers: [
+          { text: "Mathematics & Physics", career: "Engineering", icon: "fa-solid fa-calculator" },
+          { text: "Biology & Chemistry", career: "Medicine", icon: "fa-solid fa-stethoscope" },
+          { text: "Economics & Business", career: "Commerce", icon: "fa-solid fa-chart-line" },
+          { text: "History, Literature & Arts", career: "Arts", icon: "fa-solid fa-paint-brush" }
+        ]
+      },
+      {
+        question: "What kind of work excites you?",
+        answers: [
+          { text: "Building and designing solutions", career: "Engineering", icon: "fa-solid fa-gears" },
+          { text: "Helping people and saving lives", career: "Medicine", icon: "fa-solid fa-heartbeat" },
+          { text: "Managing money and businesses", career: "Commerce", icon: "fa-solid fa-coins" },
+          { text: "Expressing creativity & writing", career: "Arts", icon: "fa-solid fa-masks-theater" }
+        ]
+      },
+      {
+        question: "Which skills do you want to improve?",
+        answers: [
+          { text: "Problem solving & technical", career: "Engineering", icon: "fa-solid fa-microchip" },
+          { text: "Scientific research", career: "Medicine", icon: "fa-solid fa-dna" },
+          { text: "Accounting & finance", career: "Commerce", icon: "fa-solid fa-file-invoice-dollar" },
+          { text: "Storytelling & communication", career: "Arts", icon: "fa-solid fa-book-open" }
+        ]
+      }
+    ];
+
+    const resources = {
+  "Engineering": [
+    { 
+      name: "Udemy: Complete Physics for IIT-JEE", 
+      link: "https://www.udemy.com/course/complete-physics-for-iit-jee/", 
+      img: "https://img-c.udemycdn.com/course/240x135/567828_67d0.jpg" 
+    },
+    { 
+      name: "Coursera: Introduction to Engineering Mechanics", 
+      link: "https://www.coursera.org/learn/engineering-mechanics-statics", 
+      img: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/0d/1f95f0123542f4a2e653c4b82b86f3/EngMech.jpg" 
+    },
+    { 
+      name: "Khan Academy - Physics (Free)", 
+      link: "https://www.khanacademy.org/science/physics", 
+      img: "https://yt3.googleusercontent.com/ytc/AIf8zZTJya9e7QJPlp92ss9jQ2gh-74qUfq9K3L_oQ=s900-c-k-c0x00ffffff-no-rj" 
+    }
+  ],
+  "Medicine": [
+    { 
+      name: "Udemy: Biology Masterclass", 
+      link: "https://www.udemy.com/course/biology-masterclass/", 
+      img: "images/udemy-bio.jpg" 
+    },
+    { 
+      name: "Coursera: Anatomy Specialization", 
+      link: "https://www.coursera.org/specializations/anatomy", 
+      img: "images/coursera-anatomy.jpg" 
+    },
+    { 
+      name: "Osmosis (Free Medical Learning)", 
+      link: "https://www.osmosis.org/", 
+      img: "images/osmosis.png" 
+    }
+  ],
+
+  "Commerce": [
+    { 
+      name: "Udemy: Accounting Basics", 
+      link: "https://www.udemy.com/course/accounting-basics/", 
+      img: "https://img-c.udemycdn.com/course/240x135/2366664_bdd7_5.jpg" 
+    },
+    { 
+      name: "Coursera: Financial Markets by Yale", 
+      link: "https://www.coursera.org/learn/financial-markets-global", 
+      img: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/07/06e5f0d24c11e5894fa1e1e7f84313/finance.jpg" 
+    },
+    { 
+      name: "Investopedia (Free Resource)", 
+      link: "https://www.investopedia.com/", 
+      img: "https://www.investopedia.com/thmb/qZztyOV4rEQz1N6vJ0ns36T-fmU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/investopedia-Logo-8e71f5d.png" 
+    }
+  ],
+  "Arts": [
+    { 
+      name: "Udemy: Creative Writing Masterclass", 
+      link: "https://www.udemy.com/course/complete-creative-writing-course/", 
+      img: "https://img-c.udemycdn.com/course/240x135/24823_963e_14.jpg" 
+    },
+    { 
+      name: "Coursera: Modern & Contemporary Art", 
+      link: "https://www.coursera.org/learn/modern-contemporary-art-and-design", 
+      img: "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/art.jpg" 
+    },
+    { 
+      name: "Canva Design School (Free)", 
+      link: "https://www.canva.com/designschool/", 
+      img: "https://about.canva.com/wp-content/uploads/sites/3/2016/08/canva-logo.png" 
+    }
+  ]
+};
+
+
+    let currentQuestion = 0;
+    let answers = [];
+
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const nextBtn = document.getElementById("nextBtn");
+    const quizContainer = document.getElementById("quizContainer");
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      questionEl.textContent = q.question;
+      optionsEl.innerHTML = "";
+      nextBtn.disabled = true;
+
+      q.answers.forEach((answer, index) => {
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = "answer";
+        input.value = answer.career;
+        input.id = "option" + index;
+
+        input.addEventListener("change", () => {
+          nextBtn.disabled = false;
+        });
+
+        const icon = document.createElement("i");
+        icon.className = answer.icon;
+
+        label.htmlFor = input.id;
+        label.appendChild(input);
+        label.appendChild(icon);
+        label.append(" " + answer.text);
+
+        optionsEl.appendChild(label);
+      });
+    }
+
+    nextBtn.addEventListener("click", () => {
+      const selected = document.querySelector('input[name="answer"]:checked');
+      if (!selected) return;
+      answers.push(selected.value);
+
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    });
+
+    function showResult() {
+      const career = mostFrequent(answers);
+      quizContainer.innerHTML = `
+        <div class="result">
+          <h3><i class="fa-solid fa-award"></i> Recommended Career Path: ${career}</h3>
+          <p>Based on your answers, you might succeed in <b>${career}</b>. Here are some resources to help you:</p>
+          <div class="resources">
+            ${resources[career].map(r => `
+              <div class="course-card">
+                <img src="${r.img}" alt="${r.name}">
+                <a href="${r.link}" target="_blank">${r.name}</a>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function mostFrequent(arr) {
+      return arr.sort((a,b) =>
+        arr.filter(v => v===a).length - arr.filter(v => v===b).length
+      ).pop();
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>

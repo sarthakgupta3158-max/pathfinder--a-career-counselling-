@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinder - College & Graduates Program</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f9f9fb;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background: url('sec3.3.jpeg') center center / cover no-repeat;
+            background-attachment: fixed;
+            /* gives parallax effect & sharpness */
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3));
+        }
+
+
+
+        .hero h1 {
+            position: relative;
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, #ff512f, #dd2476);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInDown 2s ease-in-out;
+        }
+
+        .hero p {
+            position: relative;
+            font-size: 1.3rem;
+            animation: fadeInUp 2s ease-in-out;
+        }
+
+        .hero a {
+            position: relative;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Titles */
+        h2.section-title {
+            font-weight: bold;
+            background: linear-gradient(90deg, #0d6efd, #6610f2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            border: none;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+        }
+
+        .card img {
+            border-radius: 12px;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Career Section */
+        .career-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            background: white;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .career-card:hover {
+            background: linear-gradient(135deg, #0d6efd, #6610f2);
+            color: white !important;
+            transform: scale(1.05);
+        }
+
+        .career-card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(90deg, #0d6efd, #6610f2);
+            color: white;
+            padding: 20px 0;
+        }
+
+        /* Toast */
+        #toastMessage {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1055;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <img src="logo.png" class="logo" alt="Logo" height="50">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>College & Graduate Career Guidance</h1>
+        <p>Plan your career, higher studies, and job readiness with expert help</p>
+        <a href="#resources" class="btn btn-lg btn-warning mt-3 shadow">🚀 Start Building Future</a>
+    </div>
+
+    <!-- Content Section -->
+    <div id="resources" class="container my-5">
+        <h2 class="section-title">Programs & Resources</h2>
+        <p class="text-center text-muted mb-5">Superior guidance to choose your perfect career and take the right next
+            step.</p>
+
+        <div class="row g-4">
+            <!-- Card 1 -->
+            <div class="col-md-4">
+                <div class="card h-100 p-3 shadow-sm">
+                    <img src="sec3.3.1.jpeg" class="card-img-top" alt="Career Development">
+                    <div class="card-body">
+                        <h5 class="fw-bold">Career Development</h5>
+                        <p class="text-muted">Workshops & guidance to boost employability and career clarity.</p>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#careerDevModal">Read More</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-md-4">
+                <div class="card h-100 p-3 shadow-sm">
+                    <img src="sec3.3.2.png" class="card-img-top" alt="PG Guidance">
+                    <div class="card-body">
+                        <h5 class="fw-bold">Postgraduate Guidance</h5>
+                        <p class="text-muted">Personalized help to choose MS, MBA, or other higher studies paths.</p>
+                        <button class="btn btn-success btn-sm" onclick="highlightCareers()">Explore Careers</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-md-4">
+                <div class="card h-100 p-3 shadow-sm">
+                    <img src="sec3.3.3.jpeg" class="card-img-top" alt="Job Readiness">
+                    <div class="card-body">
+                        <h5 class="fw-bold">Job Readiness</h5>
+                        <p class="text-muted">Mock interviews, resume building, and soft skills for placements.</p>
+                        <a href="job-tips.pdf" class="btn btn-danger btn-sm" onclick="showToast()">Get Tips</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Career Section -->
+    <div id="careerSection" class="container my-5">
+        <h2 class="section-title">Career Options for Graduates</h2>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="career-card shadow-sm" data-bs-toggle="modal" data-bs-target="#dsModal">
+                    <i class="fas fa-database text-primary"></i>
+                    <h6>Data Scientist</h6>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="career-card shadow-sm" data-bs-toggle="modal" data-bs-target="#mbaModal">
+                    <i class="fas fa-briefcase text-success"></i>
+                    <h6>MBA Professional</h6>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="career-card shadow-sm" data-bs-toggle="modal" data-bs-target="#researchModal">
+                    <i class="fas fa-flask text-warning"></i>
+                    <h6>Researcher</h6>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="career-card shadow-sm" data-bs-toggle="modal" data-bs-target="#entrepreneurModal">
+                    <i class="fas fa-lightbulb text-danger"></i>
+                    <h6>Entrepreneur</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Career Development Modal -->
+    <div class="modal fade" id="careerDevModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h5 class="fw-bold">Career Development</h5>
+                <p class="text-muted">Enhance employability skills, network with industry experts, and get personalized
+                    mentorship to align your education with career goals.</p>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Roadmap Modals -->
+    <div class="modal fade" id="dsModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h5 class="fw-bold">Roadmap: Data Scientist</h5>
+                <ul>
+                    <li>Graduate in CS, IT, Math, or related fields.</li>
+                    <li>Learn Python, R, SQL, and data visualization tools.</li>
+                    <li>Master ML, AI, and Big Data concepts.</li>
+                    <li>Internships & projects in analytics.</li>
+                    <li>Work as Data Analyst → Data Scientist → AI Specialist.</li>
+                </ul>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mbaModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h5 class="fw-bold">Roadmap: MBA Professional</h5>
+                <ul>
+                    <li>Graduate in any discipline.</li>
+                    <li>Prepare for CAT, GMAT, or other MBA entrance exams.</li>
+                    <li>Specialize in Finance, Marketing, HR, or Operations.</li>
+                    <li>Internships with companies during MBA.</li>
+                    <li>Work in consulting, corporate management, or entrepreneurship.</li>
+                </ul>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="researchModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h5 class="fw-bold">Roadmap: Researcher</h5>
+                <ul>
+                    <li>Graduate in chosen field (Science, Social Science, etc.).</li>
+                    <li>Pursue Master’s and then PhD for specialization.</li>
+                    <li>Work as Research Associate in labs/institutions.</li>
+                    <li>Publish papers, attend conferences.</li>
+                    <li>Work in academia, think-tanks, or R&D labs.</li>
+                </ul>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="entrepreneurModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h5 class="fw-bold">Roadmap: Entrepreneur</h5>
+                <ul>
+                    <li>Graduate with business idea or industry exposure.</li>
+                    <li>Learn business management & startup fundamentals.</li>
+                    <li>Build MVP (prototype) and validate with market.</li>
+                    <li>Seek funding & mentorship.</li>
+                    <li>Grow startup into business or scale globally.</li>
+                </ul>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toastMessage" class="toast align-items-center text-white bg-dark border-0" role="alert">
+        <div class="d-flex">
+            <div class="toast-body">
+                📥 Downloading job readiness tips...
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <p class="mb-0">&copy; 2025 Pathfinder | All Rights Reserved</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Highlight Careers
+        function highlightCareers() {
+            document.getElementById('careerSection').scrollIntoView({ behavior: "smooth" });
+            let cards = document.querySelectorAll('.career-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('highlight');
+                    setTimeout(() => card.classList.remove('highlight'), 1500);
+                }, index * 300);
+            });
+        }
+
+        // Show Toast
+        function showToast() {
+            var toastEl = document.getElementById('toastMessage');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinder - Class 8-9 Program</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f9f9fb;
+        }
+
+        /* Hero Section */
+        .hero-title {
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, #ff512f, #dd2476);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInDown 2s ease-in-out;
+        }
+
+        .hero-subtitle {
+            color: #f8f9fa;
+            font-size: 1.3rem;
+            margin-top: 10px;
+            animation: fadeInUp 2s ease-in-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* Section Titles */
+        h2.section-title {
+            font-weight: bold;
+            background: linear-gradient(90deg, #0d6efd, #6610f2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            border: none;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+        }
+
+        .card img {
+            border-radius: 12px;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Career Section */
+        .career-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            background: white;
+            transition: 0.3s;
+        }
+
+        .career-card.highlight {
+            background: linear-gradient(135deg, #0d6efd, #6610f2);
+            color: white !important;
+            transform: scale(1.05);
+        }
+
+        .career-card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(90deg, #0d6efd, #6610f2);
+            color: white;
+            padding: 20px 0;
+        }
+
+        /* Toast */
+        #toastMessage {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1055;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <img src="logo.png" class="logo" alt="Logo" height="50">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+
+    <div class="hero d-flex flex-column justify-content-center align-items-center text-center">
+        <h1 class="fw-bold hero-title">Class 8-9 Career Guidance</h1>
+        <p class="lead hero-subtitle">Choose the right stream & subjects with expert support</p>
+        <a href="#resources" class="btn btn-lg btn-warning mt-3 shadow">🚀 Start Your Journey</a>
+    </div>
+
+
+    <!-- Content Section -->
+    <div class="container my-5">
+        <h2 class="section-title">Resources & Guidance</h2>
+        <p class="text-center text-muted mb-5">Get the right support to select your stream & subjects confidently.</p>
+
+        <div class="row g-4">
+            <!-- Card 1 -->
+            <div class="col-md-4">
+                <div class="card h-100 p-3 shadow-sm">
+                    <img src="sec3.1.2.png" class="card-img-top" alt="Streams Guide">
+                    <div class="card-body">
+                        <h5 class="fw-bold">Guide to Choosing Streams</h5>
+                        <p class="text-muted">Step-by-step insights on Science, Commerce & Arts.</p>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#readMoreModal">Read More</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-md-4">
+                <div class="card h-100 p-3 shadow-sm">
+                    <img src="sec3.1.3.jpeg" class="card-img-top" alt="Career Paths">
+                    <div class="card-body">
+                        <h5 class="fw-bold">Future Career Paths</h5>
+                        <p class="text-muted">Explore how subjects shape your career opportunities.</p>
+                        <button class="btn btn-success btn-sm" onclick="highlightCareers()">Explore Careers</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-md-4">
+                <div class="card h-100 p-3 shadow-sm">
+                    <img src="sec3.1.4.jpeg" class="card-img-top" alt="Subject Tips">
+                    <div class="card-body">
+                        <h5 class="fw-bold">Subject Selection Tips</h5>
+                        <p class="text-muted">Expert advice to align with your strengths.</p>
+                        <a href="subject-tips.pdf" class="btn btn-danger btn-sm" onclick="showToast()">Get Tips</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Career Section -->
+    <div id="careerSection" class="container my-5">
+        <h2 class="section-title">Choose Your Stream</h2>
+        <div class="row g-4">
+            <!-- Science -->
+            <div class="col-md-3">
+                <div class="career-card shadow-sm" data-bs-toggle="modal" data-bs-target="#scienceModal">
+                    <i class="fas fa-flask text-primary"></i>
+                    <h6>Science</h6>
+                </div>
+            </div>
+            <!-- Commerce -->
+            <div class="col-md-3">
+                <div class="career-card shadow-sm" data-bs-toggle="modal" data-bs-target="#commerceModal">
+                    <i class="fas fa-briefcase text-success"></i>
+                    <h6>Commerce</h6>
+                </div>
+            </div>
+            <!-- Arts -->
+            <div class="col-md-3">
+                <div class="career-card shadow-sm" data-bs-toggle="modal" data-bs-target="#artsModal">
+                    <i class="fas fa-paint-brush text-danger"></i>
+                    <h6>Arts / Humanities</h6>
+                </div>
+            </div>
+            <!-- Vocational -->
+            <div class="col-md-3">
+                <div class="career-card shadow-sm" data-bs-toggle="modal" data-bs-target="#vocationalModal">
+                    <i class="fas fa-cogs text-warning"></i>
+                    <h6>Vocational Courses</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal for Read More -->
+    <div class="modal fade" id="readMoreModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h5 class="fw-bold">Detailed Guide on Streams</h5>
+                <p class="text-muted">Choosing between Science, Commerce, and Arts depends on your interests, skills,
+                    and long-term goals. Our guide walks you through every step with examples.</p>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toastMessage" class="toast align-items-center text-white bg-dark border-0" role="alert">
+        <div class="d-flex">
+            <div class="toast-body">
+                📥 Downloading tips...
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+    <!-- Science Modal -->
+    <div class="modal fade" id="scienceModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h5 class="fw-bold">Roadmap: Science Stream</h5>
+                <ul>
+                    <li>Choose subjects: Physics, Chemistry, Math, Biology, Computer Science.</li>
+                    <li>Focus on analytical, logical, and problem-solving skills.</li>
+                    <li>Prepare for competitive exams (JEE, NEET, etc.).</li>
+                    <li>Careers: Engineering, Medicine, IT, Research, Data Science.</li>
+                </ul>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Commerce Modal -->
+    <div class="modal fade" id="commerceModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h5 class="fw-bold">Roadmap: Commerce Stream</h5>
+                <ul>
+                    <li>Choose subjects: Accountancy, Business Studies, Economics, Math.</li>
+                    <li>Develop skills in finance, management, and logical reasoning.</li>
+                    <li>Prepare for exams like CA, CS, CMA, or management entrance tests.</li>
+                    <li>Careers: Chartered Accountant, Banker, Economist, Entrepreneur.</li>
+                </ul>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Arts Modal -->
+    <div class="modal fade" id="artsModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h5 class="fw-bold">Roadmap: Arts / Humanities Stream</h5>
+                <ul>
+                    <li>Choose subjects: History, Political Science, Sociology, Psychology, Literature.</li>
+                    <li>Focus on critical thinking, creativity, and communication.</li>
+                    <li>Prepare for UPSC, journalism, law, or design fields.</li>
+                    <li>Careers: Lawyer, Journalist, Designer, Civil Services, Psychologist.</li>
+                </ul>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vocational Modal -->
+    <div class="modal fade" id="vocationalModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h5 class="fw-bold">Roadmap: Vocational Courses</h5>
+                <ul>
+                    <li>Choose job-oriented courses like IT, Hospitality, Fashion, Agriculture.</li>
+                    <li>Focus on skill-building and practical training.</li>
+                    <li>Consider short diplomas or certifications.</li>
+                    <li>Careers: Technician, Graphic Designer, Chef, IT Support, Skilled Trades.</li>
+                </ul>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <p class="mb-0">&copy; 2025 Pathfinder | All Rights Reserved</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Highlight Careers on Explore button
+        function highlightCareers() {
+            document.getElementById('careerSection').scrollIntoView({ behavior: "smooth" });
+            let cards = document.querySelectorAll('.career-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('highlight');
+                    setTimeout(() => card.classList.remove('highlight'), 1500);
+                }, index * 300);
+            });
+        }
+
+        // Show Toast on Download
+        function showToast() {
+            var toastEl = document.getElementById('toastMessage');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    </script>
+</body>
+
+</html>

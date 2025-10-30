@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Internship Program</title>
+  <style>
+    /* ===== Reset & Base ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #eef2ff, #dbeafe);
+      color: #1e293b;
+    }
+
+    /* ===== Header ===== */
+    header {
+      background: linear-gradient(90deg, #4f46e5, #9333ea);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* ===== Container ===== */
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      animation: fadeIn 1s ease-in-out;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+      color: #334155;
+    }
+
+    /* ===== Cards ===== */
+    .fields, .internships {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .card {
+      flex: 1 1 200px;
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+      border: 2px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 25px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #1e3a8a;
+    }
+    .card:hover {
+      background: linear-gradient(145deg, #6366f1, #9333ea);
+      color: white;
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+    }
+
+    /* ===== Internship Cards ===== */
+    .internship-card {
+      flex: 1 1 250px;
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+    }
+    .internship-card h4 {
+      color: #1e293b;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+    .internship-card:hover {
+      transform: translateY(-6px);
+      background: #f1f5f9;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    }
+    .internship-card a {
+      display: inline-block;
+      margin-top: 12px;
+      text-decoration: none;
+      color: white;
+      background: linear-gradient(90deg, #4f46e5, #9333ea);
+      padding: 10px 18px;
+      border-radius: 10px;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+    .internship-card a:hover {
+      background: linear-gradient(90deg, #4338ca, #7e22ce);
+      transform: scale(1.05);
+    }
+
+    /* ===== Hidden Section ===== */
+    .hidden {
+      display: none;
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <header>🌟 Virtual Internship Program</header>
+
+  <!-- Step 1: Choose Field -->
+  <div class="container" id="step1">
+    <h2>Choose Your Field of Internship</h2>
+    <div class="fields">
+      <div class="card" onclick="showInternships('IT')">💻 IT & Software</div>
+      <div class="card" onclick="showInternships('Marketing')">📢 Marketing</div>
+      <div class="card" onclick="showInternships('Design')">🎨 Design</div>
+      <div class="card" onclick="showInternships('Finance')">💰 Finance</div>
+    </div>
+  </div>
+
+  <!-- Step 2: Show Internships -->
+  <div class="container hidden" id="step2">
+    <h2 id="fieldTitle"></h2>
+    <h3 style="margin-bottom:15px; color:#4f46e5;">🏢 Private Internships</h3>
+    <div class="internships" id="privateInternships"></div>
+
+    <h3 style="margin:30px 0 15px; color:#9333ea;">🌍 Public Internships</h3>
+    <div class="internships" id="publicInternships"></div>
+  </div>
+
+  <script>
+    const internships = {
+      "IT": {
+        private: [
+          { name: "Web Development Intern - Private", link: "https://internshala.com/web-dev-private" },
+          { name: "AI/ML Intern - Private", link: "https://internshala.com/ai-private" }
+        ],
+        public: [
+          { name: "Open Source Contributor - Public", link: "https://github.com" },
+          { name: "Government IT Internship - Public", link: "https://www.mygov.in" }
+        ]
+      },
+      "Marketing": {
+        private: [
+          { name: "Digital Marketing Intern - Private", link: "https://internshala.com/dm-private" }
+        ],
+        public: [
+          { name: "Social Media Campaign Internship - Public", link: "https://www.unv.org" }
+        ]
+      },
+      "Design": {
+        private: [
+          { name: "UI/UX Designer Intern - Private", link: "https://internshala.com/uiux-private" }
+        ],
+        public: [
+          { name: "Open Design Project - Public", link: "https://dribbble.com" }
+        ]
+      },
+      "Finance": {
+        private: [
+          { name: "Finance Analyst Intern - Private", link: "https://internshala.com/finance-private" }
+        ],
+        public: [
+          { name: "Public Sector Bank Internship", link: "https://sbi.co.in" }
+        ]
+      }
+    };
+
+    function showInternships(field) {
+      document.getElementById("step1").classList.add("hidden");
+      document.getElementById("step2").classList.remove("hidden");
+      document.getElementById("fieldTitle").innerText = field + " Internships";
+
+      let privateDiv = document.getElementById("privateInternships");
+      let publicDiv = document.getElementById("publicInternships");
+      privateDiv.innerHTML = "";
+      publicDiv.innerHTML = "";
+
+      internships[field].private.forEach(intern => {
+        privateDiv.innerHTML += `
+          <div class="internship-card">
+            <h4>${intern.name}</h4>
+            <a href="${intern.link}" target="_blank">Apply Now</a>
+          </div>`;
+      });
+
+      internships[field].public.forEach(intern => {
+        publicDiv.innerHTML += `
+          <div class="internship-card">
+            <h4>${intern.name}</h4>
+            <a href="${intern.link}" target="_blank">Apply Now</a>
+          </div>`;
+      });
+    }
+  </script>
+</body>
+</html>

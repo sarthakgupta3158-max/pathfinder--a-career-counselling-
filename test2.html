@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Path Test</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: #fff;
+      width: 500px;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      text-align: center;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    h2 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+    .options {
+      margin: 20px 0;
+      text-align: left;
+    }
+    .options label {
+      display: block;
+      padding: 10px;
+      margin-bottom: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .options input {
+      margin-right: 10px;
+    }
+    .options label:hover {
+      background: #f0f8ff;
+    }
+    button {
+      padding: 10px 20px;
+      background: #4facfe;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    button:hover:enabled {
+      background: #0077ff;
+    }
+    .result {
+      font-size: 18px;
+      font-weight: bold;
+      color: #222;
+    }
+    .resources {
+      margin-top: 15px;
+      text-align: left;
+    }
+    .resources a {
+      display: block;
+      margin: 5px 0;
+      color: #0077cc;
+      text-decoration: none;
+    }
+    .resources a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="quiz"></div>
+    <button id="nextBtn" disabled>Next</button>
+  </div>
+
+  <script>
+    const quizData = [
+  {
+    question: "What subject do you enjoy the most?",
+    options: ["Mathematics", "Science", "Arts", "Technology"]
+  },
+  {
+    question: "What type of activities do you prefer?",
+    options: ["Problem solving", "Experiments", "Creative design", "Coding"]
+  },
+  {
+    question: "Which career sounds exciting to you?",
+    options: ["Data Scientist", "Biologist", "Designer", "Software Engineer"]
+  },
+  {
+    question: "How do you like learning?",
+    options: ["Logical exercises", "Research projects", "Visual projects", "Building applications"]
+  },
+  {
+    question: "What motivates you the most?",
+    options: ["Numbers & logic", "Discoveries", "Creativity", "Technology impact"]
+  }
+];
+
+const careerPaths = {
+  "Mathematics": {
+    path: "Data Science / Analytics",
+    resources: {
+      "Udemy": [
+        { title: "Python for Data Science and Machine Learning Bootcamp", url: "https://www.udemy.com/course/python-for-data-science-and-machine-learning-bootcamp/" }
+      ],
+      "Coursera / edX": [
+        { title: "IBM Data Science Professional Certificate", url: "https://www.coursera.org/professional-certificates/ibm-data-science" }
+      ],
+      "Free Resources": [
+        { title: "FreeCodeCamp Data Analysis with Python", url: "https://www.freecodecamp.org/learn/data-analysis-with-python/" },
+        { title: "Kaggle Learn", url: "https://www.kaggle.com/learn" }
+      ],
+      "Career Must-Know": [
+        { title: "Data Science Roadmap", url: "https://roadmap.sh/datascience" },
+        { title: "Awesome Data Science (GitHub)", url: "https://github.com/academic/awesome-datascience" }
+      ]
+    }
+  },
+  "Science": {
+    path: "Biology / Research",
+    resources: {
+      "Udemy": [
+        { title: "Biology Masterclass", url: "https://www.udemy.com/course/biology/" }
+      ],
+      "Coursera / edX": [
+        { title: "Molecular Biology by MIT (edX)", url: "https://www.edx.org/course/molecular-biology-part-1-dna-replication-and-repair" }
+      ],
+      "Free Resources": [
+        { title: "Khan Academy Biology", url: "https://www.khanacademy.org/science/biology" },
+        { title: "HHMI BioInteractive", url: "https://www.biointeractive.org/" }
+      ],
+      "Career Must-Know": [
+        { title: "NCBI Research Papers", url: "https://www.ncbi.nlm.nih.gov/" },
+        { title: "Biotech Primer Roadmap", url: "https://www.biotechprimer.com/" }
+      ]
+    }
+  },
+  "Arts": {
+    path: "Design / Creative Arts",
+    resources: {
+      "Udemy": [
+        { title: "Graphic Design Masterclass", url: "https://www.udemy.com/course/graphic-design-masterclass/" }
+      ],
+      "Coursera / edX": [
+        { title: "CalArts Graphic Design Specialization", url: "https://www.coursera.org/specializations/graphic-design" }
+      ],
+      "Free Resources": [
+        { title: "Canva Design School", url: "https://www.canva.com/learn/" },
+        { title: "FreeCodeCamp Responsive Web Design", url: "https://www.freecodecamp.org/learn/responsive-web-design/" }
+      ],
+      "Career Must-Know": [
+        { title: "Design Roadmap", url: "https://roadmap.sh/design" },
+        { title: "Behance (Portfolio Platform)", url: "https://www.behance.net/" }
+      ]
+    }
+  },
+  "Technology": {
+    path: "Software Development",
+    resources: {
+      "Udemy": [
+        { title: "The Complete Web Development Bootcamp", url: "https://www.udemy.com/course/the-complete-web-development-bootcamp/" }
+      ],
+      "Coursera / edX": [
+        { title: "CS50’s Introduction to Computer Science (Harvard)", url: "https://cs50.harvard.edu/x/" }
+      ],
+      "Free Resources": [
+        { title: "FreeCodeCamp Full Stack", url: "https://www.freecodecamp.org/learn/" },
+        { title: "The Odin Project", url: "https://www.theodinproject.com/" }
+      ],
+      "Career Must-Know": [
+        { title: "Developer Roadmap", url: "https://roadmap.sh/" },
+        { title: "GitHub Student Pack (Free Tools)", url: "https://education.github.com/pack" }
+      ]
+    }
+  }
+};
+
+let currentQuestion = 0;
+let answers = [];
+
+const quizEl = document.getElementById("quiz");
+const nextBtn = document.getElementById("nextBtn");
+
+function loadQuestion() {
+  nextBtn.disabled = true;
+  const q = quizData[currentQuestion];
+  quizEl.innerHTML = `
+    <h2>${q.question}</h2>
+    <div class="options">
+      ${q.options.map(opt => `
+        <label>
+          <input type="radio" name="answer" value="${opt}">
+          ${opt}
+        </label>
+      `).join("")}
+    </div>
+  `;
+
+  document.querySelectorAll('input[name="answer"]').forEach(option => {
+    option.addEventListener("change", () => {
+      nextBtn.disabled = false;
+    });
+  });
+}
+
+function showResult() {
+  // Find the first answer that maps to a career path, else default to Technology
+  const choice = answers.find(ans => careerPaths[ans]) || "Technology";
+  const career = careerPaths[choice];
+  
+  let resourcesHTML = "";
+  for (const category in career.resources) {
+    resourcesHTML += `<h4>${category}</h4><ul>`;
+    resourcesHTML += career.resources[category].map(r => `<li><a href="${r.url}" target="_blank">${r.title}</a></li>`).join("");
+    resourcesHTML += `</ul>`;
+  }
+
+  quizEl.innerHTML = `
+    <h2 class="result">Your Suggested Career Path: ${career.path}</h2>
+    <div class="resources">
+      <h3>Recommended Courses & Resources:</h3>
+      ${resourcesHTML}
+    </div>
+  `;
+  nextBtn.style.display = "none";
+}
+
+nextBtn.addEventListener("click", () => {
+  const selected = document.querySelector('input[name="answer"]:checked');
+  if (selected) {
+    answers.push(selected.value);
+    currentQuestion++;
+    if (currentQuestion < quizData.length) {
+      loadQuestion();
+    } else {
+      showResult();
+    }
+  }
+});
+
+loadQuestion();
+
+  </script>
+
+</body>
+</html>

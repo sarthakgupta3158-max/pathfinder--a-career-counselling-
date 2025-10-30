@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+
+        .resume-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #0d6efd;
+            margin-top: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        @media print {
+
+            #formSection,
+            #downloadBtn {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!--<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <img src="logo.png" class="logo" alt="Logo" height="50">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>-->
+    <div class="container py-4">
+        <h1 class="text-center mb-4">Resume Builder</h1>
+
+        <!-- Step 1: Form -->
+        <div id="formSection" class="card p-4">
+            <h4>Enter Your Details</h4>
+            <form id="resumeForm">
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="phone" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Location</label>
+                    <input type="text" class="form-control" id="location" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">LinkedIn</label>
+                    <input type="text" class="form-control" id="linkedin" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">GitHub</label>
+                    <input type="text" class="form-control" id="github" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Professional Summary</label>
+                    <textarea class="form-control" id="summary" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Education</label>
+                    <textarea class="form-control" id="education" rows="2" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Experience</label>
+                    <textarea class="form-control" id="experience" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Skills</label>
+                    <textarea class="form-control" id="skills" rows="2" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Projects</label>
+                    <textarea class="form-control" id="projects" rows="2" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Certifications</label>
+                    <textarea class="form-control" id="certifications" rows="2"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Create Resume</button>
+            </form>
+        </div>
+
+        <!-- Step 2: Resume Preview -->
+        <div id="resumeSection" class="resume-container d-none">
+            <div class="text-center mb-3">
+                <h2 id="rName"></h2>
+                <p>
+                    <span id="rEmail"></span> | <span id="rPhone"></span> | <span id="rLocation"></span>
+                </p>
+                <p>
+                    <a href="#" id="rLinkedin" target="_blank">LinkedIn</a> |
+                    <a href="#" id="rGithub" target="_blank">GitHub</a>
+                </p>
+            </div>
+
+            <h3 class="section-title">Professional Summary</h3>
+            <p id="rSummary"></p>
+
+            <h3 class="section-title">Education</h3>
+            <p id="rEducation"></p>
+
+            <h3 class="section-title">Experience</h3>
+            <p id="rExperience"></p>
+
+            <h3 class="section-title">Skills</h3>
+            <p id="rSkills"></p>
+
+            <h3 class="section-title">Projects</h3>
+            <p id="rProjects"></p>
+
+            <h3 class="section-title">Certifications</h3>
+            <p id="rCertifications"></p>
+        </div>
+
+        <!-- Step 3: Download Button -->
+        <div class="text-center mt-3">
+            <button id="downloadBtn" class="btn btn-success d-none" onclick="window.print()">Print / Download
+                PDF</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("resumeForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // Fill resume fields
+            document.getElementById("rName").innerText = document.getElementById("name").value;
+            document.getElementById("rEmail").innerText = document.getElementById("email").value;
+            document.getElementById("rPhone").innerText = document.getElementById("phone").value;
+            document.getElementById("rLocation").innerText = document.getElementById("location").value;
+
+            let linkedin = document.getElementById("linkedin").value;
+            let github = document.getElementById("github").value;
+            document.getElementById("rLinkedin").href = linkedin;
+            document.getElementById("rLinkedin").innerText = "LinkedIn";
+            document.getElementById("rGithub").href = github;
+            document.getElementById("rGithub").innerText = "GitHub";
+
+            document.getElementById("rSummary").innerText = document.getElementById("summary").value;
+            document.getElementById("rEducation").innerText = document.getElementById("education").value;
+            document.getElementById("rExperience").innerText = document.getElementById("experience").value;
+            document.getElementById("rSkills").innerText = document.getElementById("skills").value;
+            document.getElementById("rProjects").innerText = document.getElementById("projects").value;
+            document.getElementById("rCertifications").innerText = document.getElementById("certifications").value;
+
+            // Show resume & download button
+            document.getElementById("resumeSection").classList.remove("d-none");
+            document.getElementById("downloadBtn").classList.remove("d-none");
+            document.getElementById("formSection").classList.add("d-none");
+        });
+    </script>
+</body>
+
+</html>
